@@ -1,0 +1,1 @@
+first commit: only socket connections and frontend for game. no game rules or gameplay included.
