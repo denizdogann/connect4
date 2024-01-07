@@ -11,8 +11,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const rooms = {}
-let flag = true;
+const rooms = {};
 
 app.get("/", (req, res)=>{
   const roomID = randomstring.generate(10);
@@ -27,7 +26,7 @@ app.get("/room/:roomID", (req,res)=>{
   }
   
   res.render("gameroom", {roomID:roomID});
-})
+});
 
 
 
@@ -40,10 +39,40 @@ io.on('connection', socket => {
       socket.join(roomID);
     }
     if(rooms[roomID]["users"].length ==2){
-      io.to(roomID).emit("room-full") 
-    }
+      io.to(roomID).emit("room-full");
+      io.to(rooms[roomID]["users"][0]).emit("color",{tileColor:"red" ,oppColor:"yellow", "yourTurn":true});
+      io.to(rooms[roomID]["users"][1]).emit("color",{tileColor:"yellow", oppColor:"red", "yourTurn":false});
+    };
     console.log(rooms);
-  })
+    socket.on("clicked", (data)=>{
+      if(socket.id === rooms[roomID]["users"][0]){
+        io.to(rooms[roomID]["users"][1]).emit("opp-move",{
+          colNo:data.colNo,
+          leftRow:data.leftRow,
+          "yourTurn":true
+        });
+        io.to(rooms[roomID]["users"][0]).emit("your-move",{
+          colNo:data.colNo,
+          leftRow:data.leftRow,
+          "yourTurn":false
+        });
+      }
+      if(socket.id === rooms[roomID]["users"][1]){
+        io.to(rooms[roomID]["users"][0]).emit("opp-move",{
+          colNo:data.colNo,
+          leftRow:data.leftRow,
+          "yourTurn":true
+        });
+        io.to(rooms[roomID]["users"][1]).emit("your-move",{
+          colNo:data.colNo,
+          leftRow:data.leftRow,
+          "yourTurn":false
+        });  
+      }})
+    }
+  )
+
+  
   socket.on('disconnecting', () => {
     console.log("socket bağlantıyı kesti: " + socket.id);
     for (const property in rooms) {
@@ -54,24 +83,8 @@ io.on('connection', socket => {
     }
     console.log(rooms);
   });
-  /*socket.on('send-chat-message', (room, message) => {
-    socket.to(room).broadcast.emit('chat-message', { message: message, name: rooms[room].users[socket.id] })
-  })
-  socket.on('disconnect', () => {
-    getUserRooms(socket).forEach(room => {
-      socket.to(room).broadcast.emit('user-disconnected', rooms[room].users[socket.id])
-      delete rooms[room].users[socket.id]
-    }) 
-  }) */
 })
 
-/*function getUserRooms(socket) {
-  return Object.entries(rooms).reduce((names, [name, room]) => {
-    if (room.users[socket.id] != null) names.push(name)
-    return names
-  }, [])
-}
-*/
 
 
 server.listen(3000, () => {
