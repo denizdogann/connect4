@@ -1,11 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 *{
     margin:0;
     box-sizing: border-box;
-    font-family: 'Ubuntu Mono', monospace;
+    
 }
+
+.title{
+    font-family: 'Luckiest Guy', cursive;
+    color:whitesmoke;
+    font-size: 4rem;
+    letter-spacing: 3px;
+    text-wrap: balance;
+    text-align: center;
+}
+
+a{
+    margin-top: 1rem;
+    font-family: 'Luckiest Guy', cursive;
+    padding:20px;
+    color:rgb(180,139,241);
+    text-decoration: none;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    border:1px solid transparent;
+    letter-spacing: 1px;
+    min-width: 20rem;
+    text-align: center;
+}
+a:hover{
+    cursor: pointer;
+    color: white;
+    background-color: rgba(129,89,222,1);
+    border:1px solid white;
+}
+
 
 body{
     height: 100vh;
@@ -13,7 +44,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: palegoldenrod;
+    background: rgb(180,139,241);
+    background: linear-gradient(356deg, rgba(180,139,241,1) 36%, rgba(129,89,222,1) 69%); 
 
 }
 .container{

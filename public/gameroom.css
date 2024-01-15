@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 *{
     margin:0;
     box-sizing: border-box;
-    font-family: 'Ubuntu Mono', monospace;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 body{
-    background-color: wheat;
+    background-color: #8558f7;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height:100vh;
-
 }
 
 .container{
@@ -22,7 +22,7 @@ body{
     display:grid;
     grid-template-columns: repeat(7,1fr);
     gap:1rem;
-    background-color: #377EB8;
+    background-color: white;
     border-radius: 10px;
 }
 .column{
@@ -31,10 +31,15 @@ body{
     gap:1rem;
 }
 .box{
-    width:75px;
-    height:75px;
-    background-color: white;
+    width:55px;
+    height:55px;
+    background-color: #8558f7;
     border-radius: 50%;
+    color:transparent;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-top: 6px solid black;
 }
 .column:hover{
     cursor: pointer;
@@ -42,11 +47,12 @@ body{
 }
 
 #share-link{
-    color:red;
+    color:#FF6966;
     position: absolute;
-    background-color: yellow;
+    background-color: #FFE166;
     padding:30px 20px;
-    box-shadow:0 0 0 9999px #000000b0
+    box-shadow:0 0 0 9999px #000000b0;
+    border-radius:5px ;
 }
 #share-link input{
     width:350px;
@@ -54,3 +60,54 @@ body{
 #share-link svg:hover{
     cursor: pointer;
 }
+
+
+#result {
+    padding:20px;
+    border-radius: 10px;
+    background-color: transparent;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 6rem;
+    text-shadow:5px 5px #000000;
+    display: none;
+    position: absolute;
+    width: 60%;
+    box-shadow:0 0 0 9999px #000000b0;
+
+}
+
+.play-again{
+    display:block;
+    border-radius: 10px;
+    font-size:3rem;
+    letter-spacing:1px;
+    padding:20px;
+    text-align: center;
+    color:#666DFF;
+    position:absolute;
+    box-shadow:0 0 0 9999px #000000b0;
+}
+
+.animate-in-out {
+    opacity: 0;
+    animation: fadeInOut 5s forwards;
+}
+
+.play-again-nodisplay {
+    display: none;
+}
+
+@keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }

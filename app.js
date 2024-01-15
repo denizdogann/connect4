@@ -12,9 +12,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const rooms = {};
+const roomsArr = []
+let responses = 0;
 
 app.get("/", (req, res)=>{
-  const roomID = randomstring.generate(10);
+  let roomID = randomstring.generate(15);
+  while(roomID in roomsArr){
+    roomID = randomstring.generate(15)
+  }
+  roomsArr.push(roomID);
   rooms[roomID] = { "users": [] }
   res.render("index", {roomID:roomID});
 });
@@ -40,8 +46,8 @@ io.on('connection', socket => {
     }
     if(rooms[roomID]["users"].length ==2){
       io.to(roomID).emit("room-full");
-      io.to(rooms[roomID]["users"][0]).emit("color",{tileColor:"red" ,oppColor:"yellow", "yourTurn":true});
-      io.to(rooms[roomID]["users"][1]).emit("color",{tileColor:"yellow", oppColor:"red", "yourTurn":false});
+      io.to(rooms[roomID]["users"][0]).emit("color",{tileColor:"#FF6966" ,oppColor:"#FFE166", "yourTurn":true});
+      io.to(rooms[roomID]["users"][1]).emit("color",{tileColor:"#FFE166", oppColor:"#FF6966", "yourTurn":false});
     };
     console.log(rooms);
     socket.on("clicked", (data)=>{
@@ -69,9 +75,36 @@ io.on('connection', socket => {
           "yourTurn":false
         });  
       }})
-    }
-  )
+      socket.on("winner", (data)=>{
+        if(socket.id === rooms[roomID]["users"][0]){
+          io.to(rooms[roomID]["users"][0]).emit(("you-won"));
+          io.to(rooms[roomID]["users"][1]).emit(("you-lost"))
+        }
 
+        if(socket.id === rooms[roomID]["users"][1]){
+          io.to(rooms[roomID]["users"][1]).emit(("you-won"));
+          io.to(rooms[roomID]["users"][0]).emit(("you-lost"))
+        }
+
+      })
+      
+      socket.on("play-again-req",(data)=>{
+        responses++;
+        if(responses === 2){
+          io.to(roomID).emit("restart")
+          responses = 0;
+        }
+        console.log("YENİDENNNNN OYNA  ", responses)
+        
+      })
+
+      
+
+    }
+
+      
+    
+  )
   
   socket.on('disconnecting', () => {
     console.log("socket bağlantıyı kesti: " + socket.id);
