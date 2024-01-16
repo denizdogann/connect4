@@ -44,8 +44,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgb(180,139,241);
-    background: linear-gradient(356deg, rgba(180,139,241,1) 36%, rgba(129,89,222,1) 69%); 
+    background: rgb(133,88,247);
+    background: linear-gradient(180deg, rgba(133,88,247,1) 31%, rgba(129,84,243,1) 86%);  
 
 }
 .container{

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400;700&display=swap');
+
 
 *{
     margin:0;
@@ -8,9 +10,10 @@
 }
 
 body{
-    background-color: #8558f7;
+    background: rgb(133,88,247);
+    background: linear-gradient(180deg, rgba(133,88,247,1) 31%, rgba(129,84,243,1) 86%); 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height:100vh;
@@ -47,32 +50,36 @@ body{
 }
 
 #share-link{
-    color:#FF6966;
+    color:#F74F25;
     position: absolute;
-    background-color: #FFE166;
+    background-color: #F7E625;
     padding:30px 20px;
     box-shadow:0 0 0 9999px #000000b0;
     border-radius:5px ;
 }
 #share-link input{
     width:350px;
+    font-weight: 400;
 }
 #share-link svg:hover{
     cursor: pointer;
 }
-
+#share-link h3{
+    letter-spacing: 2px;
+}
 
 #result {
-    padding:20px;
+    padding:1rem;
     border-radius: 10px;
     background-color: transparent;
     font-family: 'Luckiest Guy', cursive;
-    font-size: 6rem;
+    font-size: 5.5rem;
     text-shadow:5px 5px #000000;
     display: none;
     position: absolute;
-    width: 60%;
+    width: max-content;
     box-shadow:0 0 0 9999px #000000b0;
+    text-align: center;
 
 }
 
@@ -97,6 +104,37 @@ body{
     display: none;
 }
 
+.player-title {
+    font-weight:400;
+}
+  
+.score{
+    font-size:3rem;
+}
+.player-box{
+    margin:100px;
+    border:3px solid black;
+    width:max-content;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:2rem;
+    padding:1rem;
+    border-radius:10px;
+    border-bottom:10px solid black;
+    
+}
+.player-box h1{
+    font-family: 'Tektur', sans-serif;
+}
+.p1-box{
+    background-color: #F74F25;
+}
+.p2-box{
+    background-color: #F7E625;
+}
+
 @keyframes fadeInOut {
     0% {
       opacity: 0;
@@ -110,4 +148,4 @@ body{
       opacity: 0;
       transform: scale(1);
     }
-  }
+}

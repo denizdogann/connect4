@@ -46,8 +46,16 @@ io.on('connection', socket => {
     }
     if(rooms[roomID]["users"].length ==2){
       io.to(roomID).emit("room-full");
-      io.to(rooms[roomID]["users"][0]).emit("color",{tileColor:"#FF6966" ,oppColor:"#FFE166", "yourTurn":true});
-      io.to(rooms[roomID]["users"][1]).emit("color",{tileColor:"#FFE166", oppColor:"#FF6966", "yourTurn":false});
+      io.to(rooms[roomID]["users"][0]).emit("color",
+      {myColor:"#F74F25", 
+      oppColor:"#F7E625", 
+      "yourTurn":true, 
+      "player":"p1"});
+      io.to(rooms[roomID]["users"][1]).emit("color",
+      {myColor:"#F7E625", 
+      oppColor:"#F74F25", 
+      "yourTurn":false, 
+      "player":"p2"});
     };
     console.log(rooms);
     socket.on("clicked", (data)=>{

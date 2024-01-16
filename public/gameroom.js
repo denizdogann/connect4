@@ -4,10 +4,16 @@ const copyText = document.getElementById("share-room-link");
 const shareLinkBox = document.getElementById("share-link");
 const resultBox = document.getElementById("result");
 const resultMsg = document.getElementById("result-msg");
-let gameOver = false;
 
-let tileColor = "white"
+let me = "player1";
+let opp = "player2";
+
+let gameOver = false;
+let myColor = "white"
 let oppColor = "black";
+let oppScore = 0;
+let myScore = 0;
+
 let myTurn = false;
 let chosenTiles = [];
 const winningCombinations = [];
@@ -32,9 +38,18 @@ socket.on("room-full", ()=>{
 });
 
 socket.on("color", (data)=>{
-    tileColor = data.tileColor;
+    myColor= data.myColor;
     oppColor = data.oppColor;
     myTurn = data.yourTurn;
+    if(data.player == "p1"){
+        me = "p1"
+        opp = "p2"
+    }
+    else if(data.player == "p2"){
+        me = "p2"
+        opp = "p1"
+    }
+
 });
 
 $(".column").on("click", function(){
@@ -68,17 +83,19 @@ socket.on("your-move", (data)=>{
     let leftRow = data.leftRow;
     let selectedTile = document.getElementsByClassName("column").item(data.colNo - 1);
     console.log(selectedTile.getAttribute("left-row"));
-    selectedTile.children[leftRow - 1].style.backgroundColor = tileColor;
+    selectedTile.children[leftRow - 1].style.backgroundColor = myColor
+;
     myTurn = data.yourTurn
 });
 
 
 socket.on("you-won",()=>{
+    myTurn = !myTurn;
     resultMsg.innerHTML = "YOU WON!"
     resultBox.style.display = "inline-block";
-    resultMsg.style.color = "green";
+    resultMsg.style.color = "#4FC474";
     resultBox.classList.add("animate-in-out");
-    myTurn = !myTurn;
+    document.getElementById(me+"-score").innerHTML =myScore + 1; 
     setTimeout(function(){
         playAgain.classList.remove("play-again-nodisplay")
         playAgain.classList.add("play-again")
@@ -86,11 +103,12 @@ socket.on("you-won",()=>{
 
 })
 socket.on("you-lost",()=>{
+    myTurn = !myTurn;
     resultMsg.innerHTML = "YOU LOST!"
     resultBox.style.display = "inline-block";
-    resultMsg.style.color = "red";
+    resultMsg.style.color = "#CC5452";
     resultBox.classList.add("animate-in-out");
-    myTurn = !myTurn;
+    document.getElementById(opp+"-score").innerHTML = oppScore + 1;
     setTimeout(function(){
         playAgain.classList.remove("play-again-nodisplay")
         playAgain.classList.add("play-again");
@@ -162,7 +180,7 @@ function checkForWin(chosenTiles){
                 gameOver = true;
                 resultBox.classList.add("animate-in-out");
                 console.log("WINNER")
-                socket.emit("winner", {player:tileColor})
+                socket.emit("winner", {player:myColor});
                 
     }
     }
@@ -184,7 +202,8 @@ function restartTheGame(){
         col.setAttribute("left-row", 6)
     ]
 
-    /*if(tileColor=="yellow"){
+    /*if(myColor
+    =="yellow"){
         myTurn = true;
     }*/
 }
