@@ -151,7 +151,6 @@ for(let i=4;i<7;i++){
       const arr=[j,j+5,j+10,j+15]
       winningCombinations.push(arr)
     }
-  
 }
   
   
@@ -165,9 +164,6 @@ for(let i =1; i<20; i=i+6){
 
 
 function checkForWin(chosenTiles){
-    const sorted = chosenTiles.sort(function(a, b){return a-b})
-    console.log("FONK SONUC: ",sorted);
-
     for(let i = 0; i < winningCombinations.length; i++){
         const circle1 = winningCombinations[i][0];
         const circle2 = winningCombinations[i][1];
@@ -180,11 +176,9 @@ function checkForWin(chosenTiles){
                 gameOver = true;
                 resultBox.classList.add("animate-in-out");
                 console.log("WINNER")
-                socket.emit("winner", {player:myColor});
-                
+                socket.emit("winner", {player:myColor});        
     }
     }
-    
 }
 
 
@@ -202,8 +196,4 @@ function restartTheGame(){
         col.setAttribute("left-row", 6)
     ]
 
-    /*if(myColor
-    =="yellow"){
-        myTurn = true;
-    }*/
 }

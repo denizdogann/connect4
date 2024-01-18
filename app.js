@@ -102,7 +102,7 @@ io.on('connection', socket => {
           io.to(roomID).emit("restart")
           responses = 0;
         }
-        console.log("YENİDENNNNN OYNA  ", responses)
+        console.log("YENİDEN OYNA  ", responses)
         
       })
 
