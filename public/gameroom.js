@@ -1,4 +1,5 @@
 const socket = io.connect('https://connect4-demo.onrender.com');
+//const socket = io.connect('http://localhost:3000/');
 const copyIcon = document.getElementById("copy-icon");
 const copyText = document.getElementById("share-room-link");
 const shareLinkBox = document.getElementById("share-link");
@@ -167,14 +168,13 @@ function checkForWin(chosenTiles){
         const circle2 = winningCombinations[i][1];
         const circle3 = winningCombinations[i][2];
         const circle4 = winningCombinations[i][3];
-
         if(
             chosenTiles.includes(circle1) && chosenTiles.includes(circle2) &&
             chosenTiles.includes(circle3) && chosenTiles.includes(circle4)) {
                 gameOver = true;
                 resultBox.classList.add("animate-in-out");
                 console.log("WINNER")
-                socket.emit("winner", {player:myColor});        
+                socket.emit("winner");        
     }
     }
 }
@@ -193,5 +193,4 @@ function restartTheGame(){
     for(col of columns)[
         col.setAttribute("left-row", 6)
     ]
-
 }

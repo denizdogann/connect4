@@ -10,10 +10,11 @@
 .title{
     font-family: 'Luckiest Guy', cursive;
     color:whitesmoke;
-    font-size: 4rem;
+    font-size: 2.5rem;
     letter-spacing: 3px;
     text-wrap: balance;
     text-align: center;
+    margin-top: -25rem;
 }
 
 a{
@@ -47,43 +48,4 @@ body{
     background: rgb(133,88,247);
     background: linear-gradient(180deg, rgba(133,88,247,1) 31%, rgba(129,84,243,1) 86%);  
 
-}
-.container{
-    padding:10px;
-    max-width: 800px;
-    display:grid;
-    grid-template-columns: repeat(7,1fr);
-    gap:1rem;
-    background-color: #377EB8;
-    border-radius: 10px;
-}
-.column{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap:1rem;
-}
-.box{
-    width:75px;
-    height:75px;
-    background-color: white;
-    border-radius: 50%;
-}
-.column:hover{
-    cursor: pointer;
-    opacity: 0.8;
-}
-
-.share-link{
-    color:red;
-    position: absolute;
-    background-color: yellow;
-    padding:40px 30px;
-    border-radius: 10px;
-    box-shadow:0 0 0 9999px #000000b0;
-}
-.share-link input{
-    width:350px;
-}
-.share-link svg:hover{
-    cursor: pointer;
 }

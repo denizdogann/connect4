@@ -152,3 +152,44 @@ body{
       transform: scale(1);
     }
 }
+
+@media all and (max-width: 600px) {
+    body{
+        display: block;
+        height: 100vh;
+        position: relative;
+    }
+    .box{
+        width:45px;
+        height:45px;
+    }
+    .container{
+        width:90%;
+        max-width:360px;
+        gap: 0;
+        margin: auto;
+        margin-top: 2rem;
+    }
+    .column{
+        gap: 0.6rem;
+        justify-items: center;
+    }
+    .player-box{
+        position: absolute;
+        top: 18rem;
+        padding:0;
+        gap:0;
+    }
+    .p1-box{
+        left:-20%;
+    }
+    .p2-box{
+        right:-20%;
+    }
+    .player-box h1{
+        font-size: 1.4rem;
+    }
+    #share-link{
+        top:5rem;
+    }
+}

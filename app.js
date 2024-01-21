@@ -87,12 +87,10 @@ io.on('connection', socket => {
           io.to(rooms[roomID]["users"][0]).emit(("you-won"));
           io.to(rooms[roomID]["users"][1]).emit(("you-lost"))
         }
-
         if(socket.id === rooms[roomID]["users"][1]){
           io.to(rooms[roomID]["users"][1]).emit(("you-won"));
           io.to(rooms[roomID]["users"][0]).emit(("you-lost"))
         }
-
       })
       
       socket.on("play-again-req",(data)=>{
