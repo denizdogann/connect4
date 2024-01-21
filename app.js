@@ -34,6 +34,9 @@ app.get("/room/:roomID", (req,res)=>{
   res.render("gameroom", {roomID:roomID});
 });
 
+app.get("/vscpu", (req,res)=>{
+  res.render("vscpu")
+})
 
 
 io.on('connection', socket => {
