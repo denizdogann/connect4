@@ -1,5 +1,5 @@
-//const socket = io.connect('https://connect4-demo.onrender.com');
-const socket = io.connect('http://localhost:3000/');
+const socket = io.connect('https://connect4-demo.onrender.com');
+//const socket = io.connect('http://localhost:3000/');
 const copyIcon = document.getElementById("copy-icon");
 const copyText = document.getElementById("share-room-link");
 const shareLinkBox = document.getElementById("share-link");
