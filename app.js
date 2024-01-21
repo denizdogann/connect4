@@ -37,21 +37,20 @@ app.get("/room/:roomID", (req,res)=>{
 
 
 io.on('connection', socket => {
-  socket.on('new-user', (data) => {
+  socket.on('new-user', (data) => { // TARAYICIDAN GELEN ETKİNLİK KARŞILANIR
     const roomID = data.roomID;
-    console.log("ODA ID: " + roomID)
     if(rooms[roomID]["users"].length < 3){
       rooms[roomID]["users"].push(socket.id);
       socket.join(roomID);
     }
-    if(rooms[roomID]["users"].length ==2){
-      io.to(roomID).emit("room-full");
-      io.to(rooms[roomID]["users"][0]).emit("color",
+    if(rooms[roomID]["users"].length ==2){ 
+      io.to(roomID).emit("room-full"); // OYUN ODASININ DOLDUĞU BİLDİRİLİR
+      io.to(rooms[roomID]["users"][0]).emit("color-assign",
       {myColor:"#F74F25", 
       oppColor:"#F7E625", 
       "yourTurn":true, 
       "player":"p1"});
-      io.to(rooms[roomID]["users"][1]).emit("color",
+      io.to(rooms[roomID]["users"][1]).emit("color-assign",
       {myColor:"#F7E625", 
       oppColor:"#F74F25", 
       "yourTurn":false, 

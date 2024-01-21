@@ -29,15 +29,15 @@ copyIcon.addEventListener("click", function() {
     navigator.clipboard.writeText(copyText.value);
 });
 
-socket.emit("new-user", {
-    roomID:roomID
-})
-
-socket.on("room-full", ()=>{
-    shareLinkBox.style.display = "none"
+socket.emit("new-user", { //YENİ BİR KULLANICININ ODAYA GİRDİĞİNİ
+    roomID:roomID         // SUNUCUYA BİLDİRİR
 });
 
-socket.on("color", (data)=>{
+socket.on("room-full", ()=>{ //SUNUCUDAN GELEN ODA DOLU
+    shareLinkBox.style.display = "none" // ETKİNLİĞİ KARŞILANIR
+});
+
+socket.on("color-assign", (data)=>{
     myColor= data.myColor;
     oppColor = data.oppColor;
     myTurn = data.yourTurn;
@@ -55,17 +55,15 @@ socket.on("color", (data)=>{
 $(".column").on("click", function(){
     let colNo = this.getAttribute("col-no");
     let leftRow = this.getAttribute("left-row");
-    if(myTurn == true && leftRow>0){
-        let circle = (colNo*6) - (6-leftRow)
+    if(myTurn == true && leftRow>0){ 
+        let circle = (colNo*6) - (6-leftRow)//DİSK HANGİ BOŞLUĞA DÜŞTÜ
         chosenTiles.push(circle);
-        //console.log(chosenTiles)
         socket.emit("clicked", {colNo:colNo, leftRow:leftRow});
         if (leftRow >= 1){
             this.setAttribute("left-row", leftRow - 1)
         }
         checkForWin(chosenTiles)
-    }
-    
+    }   
 })
 
 socket.on("opp-move", (data)=>{
@@ -77,6 +75,8 @@ socket.on("opp-move", (data)=>{
         selectedTile.setAttribute("left-row", leftRow -1)
     }
     myTurn = data.yourTurn
+    document.getElementById(me + "-your-turn").classList.remove("your-turn");
+    
 })
 
 socket.on("your-move", (data)=>{
@@ -85,11 +85,12 @@ socket.on("your-move", (data)=>{
     console.log(selectedTile.getAttribute("left-row"));
     selectedTile.children[leftRow - 1].style.backgroundColor = myColor
 ;
-    myTurn = data.yourTurn
+    myTurn = data.yourTurn;
+    document.getElementById(me + "-your-turn").classList.add("your-turn");
 });
 
 
-socket.on("you-won",()=>{
+socket.on("you-won",()=>{ 
     myTurn = !myTurn;
     resultMsg.innerHTML = "YOU WON!"
     resultBox.style.display = "inline-block";
@@ -100,8 +101,8 @@ socket.on("you-won",()=>{
         playAgain.classList.remove("play-again-nodisplay")
         playAgain.classList.add("play-again")
     },6000)
-
 })
+
 socket.on("you-lost",()=>{
     myTurn = !myTurn;
     resultMsg.innerHTML = "YOU LOST!"
@@ -113,7 +114,6 @@ socket.on("you-lost",()=>{
         playAgain.classList.remove("play-again-nodisplay")
         playAgain.classList.add("play-again");
     },6000)
-    
 })
 
 socket.on("restart",()=>{
@@ -151,9 +151,7 @@ for(let i=4;i<7;i++){
       const arr=[j,j+5,j+10,j+15]
       winningCombinations.push(arr)
     }
-}
-  
-  
+} 
 for(let i =1; i<20; i=i+6){
     for (let j = i;j<i+4;j++){
       const arr=[j,j+7,j+14,j+21]

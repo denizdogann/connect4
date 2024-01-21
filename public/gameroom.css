@@ -48,6 +48,9 @@ body{
     cursor: pointer;
     opacity: 0.8;
 }
+.your-turn{
+    visibility: hidden;
+}
 
 #share-link{
     color:#F74F25;
@@ -113,7 +116,7 @@ body{
 }
 .player-box{
     margin:100px;
-    border:3px solid black;
+    border:2px solid black;
     width:max-content;
     display:flex;
     flex-direction:column;
